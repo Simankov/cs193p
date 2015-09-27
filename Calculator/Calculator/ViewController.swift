@@ -19,12 +19,22 @@ class ViewController: UIViewController {
     @IBAction func appendDigit(sender: UIButton) {
         
         let digit = sender.currentTitle!;
+        if (digit == "." && label.text!.rangeOfString(".") != nil && userInTheMiddleOfTypingNumber){
+                 return;
+            }
+        
         if (userInTheMiddleOfTypingNumber){
             label.text = label.text! + digit;
         } else {
             
             userInTheMiddleOfTypingNumber = true;
-            label.text = digit;
+            if (digit=="."){
+                label.text = "0"+digit;
+            } else {
+                
+               label.text = digit;
+                
+            }
         }
     }
     
@@ -58,6 +68,9 @@ class ViewController: UIViewController {
         operandStack.append(displayValue);
         print(operandStack);
     }
+    
+    
+    
     
     func performOperation(operation: (Double,Double)->Double){
         if (operandStack.count>=2){
