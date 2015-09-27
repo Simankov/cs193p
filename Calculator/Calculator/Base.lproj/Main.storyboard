@@ -8,7 +8,7 @@
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Caclulator" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Calculator" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -107,14 +107,6 @@
                                 <rect key="frame" x="28" y="471" width="102" height="121"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="30"/>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ceU-UG-fPJ">
-                                <rect key="frame" x="359" y="83" width="103" height="121"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
-                                <state key="normal" title="√"/>
-                                <connections>
-                                    <action selector="operate:" destination="BYZ-38-t0r" eventType="touchDragInside" id="3b7-RU-BVH"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="B7P-9n-Kha">
                                 <rect key="frame" x="470" y="83" width="102" height="121"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="30"/>
@@ -158,6 +150,10 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OWn-na-V4a">
                                 <rect key="frame" x="470" y="212" width="102" height="122"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                <state key="normal" title="."/>
+                                <connections>
+                                    <action selector="appendDigit:" destination="BYZ-38-t0r" eventType="touchUpInside" id="PyM-32-pur"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TRG-l4-VhY">
                                 <rect key="frame" x="470" y="342" width="102" height="121"/>
@@ -166,6 +162,14 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fwp-TG-RsG">
                                 <rect key="frame" x="470" y="471" width="102" height="121"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ceU-UG-fPJ">
+                                <rect key="frame" x="359" y="83" width="103" height="121"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                <state key="normal" title="√"/>
+                                <connections>
+                                    <action selector="operate:" destination="BYZ-38-t0r" eventType="touchUpInside" id="zal-ZJ-8YJ"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
