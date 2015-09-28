@@ -10,6 +10,7 @@ import UIKit
 
 class ViewController: UIViewController {
     
+    @IBOutlet weak var historyLabel: UILabel!
     var userInTheMiddleOfTypingNumber = false;
     var operandStack = Array<Double>()
     
@@ -52,7 +53,10 @@ class ViewController: UIViewController {
         if userInTheMiddleOfTypingNumber {
             enter();
         }
-        switch sender.currentTitle! {
+        let operation = sender.currentTitle!;
+        
+        historyLabel.text! += operation;
+        switch operation {
             case "+": performOperation {$0 + $1}
             case "−": performOperation {$1 - $0}
             case "√": performOperation {sqrt($0)}
@@ -67,17 +71,31 @@ class ViewController: UIViewController {
     
     @IBAction func enter() {
         userInTheMiddleOfTypingNumber = false;
-        operandStack.append(displayValue);
+        let value = displayValue;
+        operandStack.append(value);
+        historyLabel.text = historyLabel.text! + "val:"+"\(value) ";
         print(operandStack);
+        
     }
     
+    
+    @IBAction func clear() {
+        label.text = "0";
+        historyLabel.text = "";
+        userInTheMiddleOfTypingNumber = false;
+        operandStack.removeAll();
+        
+    }
     
     
     
     func performOperation(operation: (Double,Double)->Double){
         if (operandStack.count>=2){
+            let firstOp = operandStack.removeLast();
+            let secondOp = operandStack.removeLast();
+            displayValue = operation(firstOp,secondOp);
             
-            displayValue = operation(operandStack.removeLast(),operandStack.removeLast());
+            historyLabel.text! += "(\(firstOp),\(secondOp)) = "
             enter()
         }
         
@@ -88,8 +106,9 @@ class ViewController: UIViewController {
     
     func performOperation(operation: (Double)->Double){
         if (operandStack.count>=1){
-            
-            displayValue = operation(operandStack.removeLast());
+            let operand = operandStack.removeLast()
+            displayValue = operation(operand);
+            historyLabel.text! += "(\(operand)) = "
             enter()
         }
         
@@ -99,6 +118,7 @@ class ViewController: UIViewController {
         
             
             displayValue = operation();
+            historyLabel.text!+=" ";
             enter()
         
     }
