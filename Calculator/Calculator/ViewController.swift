@@ -17,44 +17,74 @@ class ViewController: UIViewController {
 
     @IBOutlet weak var label: UILabel!
     
-    @IBAction func appendDigit(sender: UIButton) {
+    @IBAction func appendObject(sender: UIButton) {
         
-        let digit = sender.currentTitle!;
-        if (digit == "." && label.text!.rangeOfString(".") != nil && userInTheMiddleOfTypingNumber){
-                 return;
+        let object = sender.currentTitle!;
+        
+        switch object {
+            case "+/−": changeSign()
+            case ".": appendDot()
+            default : appendDigit(object)
+        }
+    }
+    
+    func appendDot(){
+        if (label.text!.rangeOfString(".") == nil){
+            if (userInTheMiddleOfTypingNumber){
+                label.text!+=".";
+            } else {
+                label.text!="0."
             }
         
+        }
+    }
+    
+    func changeSign(){
         if (userInTheMiddleOfTypingNumber){
-            label.text = label.text! + digit;
-        } else {
-            
-            userInTheMiddleOfTypingNumber = true;
-            if (digit=="."){
-                label.text = "0"+digit;
+            if (displayValue>0){
+                label.text! = "-" + label.text!
             } else {
-                
-               label.text = digit;
-                
+                label.text! = String(label.text!.characters.dropFirst());
             }
         }
     }
     
-    var displayValue: Double {
+    func appendDigit(digit:String){
+        if (userInTheMiddleOfTypingNumber){
+            label.text!+=digit;
+        } else {
+            label.text!=digit;
+            userInTheMiddleOfTypingNumber = true;
+        }
+    }
+    
+    var displayValue: Double? {
         get{
-            return NSNumberFormatter().numberFromString(label.text!)!.doubleValue;
+            
+            return NSNumberFormatter().numberFromString(label.text!)?.doubleValue;
+            
         }
         set{
+            
+            if (newValue != nil){
             userInTheMiddleOfTypingNumber = false;
-            label.text = "\(newValue)"
+            label.text = "\(newValue!)"
+            }
+            else {
+            label.text = "";
+            }
         }
     }
 
     @IBAction func operate(sender: UIButton) {
+        
+        let operation = sender.currentTitle!;
         if userInTheMiddleOfTypingNumber {
+            if (operation == "+/−"){
+                return
+            }
             enter();
         }
-        let operation = sender.currentTitle!;
-        
         historyLabel.text! += operation;
         switch operation {
             case "+": performOperation {$0 + $1}
@@ -65,16 +95,22 @@ class ViewController: UIViewController {
             case "sin":performOperation {sin($0)}
             case "cos":performOperation {cos($0)}
             case "π":  performOperation {M_PI}
+            case "+/−" :performOperation{self.inv($0)}
             default : break;
         }
     }
     
+    func inv(x: Double)->Double{
+            return (-1)*x
+    }
+    
     @IBAction func enter() {
         userInTheMiddleOfTypingNumber = false;
-        let value = displayValue;
-        operandStack.append(value);
-        historyLabel.text = historyLabel.text! + "val:"+"\(value) ";
-        print(operandStack);
+        if let value = displayValue{
+            operandStack.append(value);
+            historyLabel.text = historyLabel.text! + "val:"+"\(value) ";
+            print(operandStack);
+        }
         
     }
     
@@ -87,6 +123,7 @@ class ViewController: UIViewController {
         userInTheMiddleOfTypingNumber = false;
         }
     }
+    
     @IBAction func clear() {
         label.text = "0";
         historyLabel.text = "";
@@ -121,6 +158,8 @@ class ViewController: UIViewController {
         }
         
     }
+
+
     @objc (performOperationThree:)
     func performOperation(operation: ()->Double){
         
