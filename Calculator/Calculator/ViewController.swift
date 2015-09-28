@@ -79,6 +79,14 @@ class ViewController: UIViewController {
     }
     
     
+    @IBAction func backspace() {
+       if (label.text!.characters.count>=2){
+            label.text! = String(label.text!.characters.dropLast())
+       } else {
+            label.text!="0";
+        userInTheMiddleOfTypingNumber = false;
+        }
+    }
     @IBAction func clear() {
         label.text = "0";
         historyLabel.text = "";
