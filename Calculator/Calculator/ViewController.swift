@@ -12,8 +12,7 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var historyLabel: UILabel!
     var userInTheMiddleOfTypingNumber = false;
-    var operandStack = Array<Double>()
-    
+    var brain  = CalculatorBrain()
 
     @IBOutlet weak var label: UILabel!
     
@@ -77,39 +76,24 @@ class ViewController: UIViewController {
     }
 
     @IBAction func operate(sender: UIButton) {
-        
+    
         let operation = sender.currentTitle!;
+        
         if userInTheMiddleOfTypingNumber {
             if (operation == "+/−"){
                 return
             }
             enter();
         }
-        historyLabel.text! += operation;
-        switch operation {
-            case "+": performOperation {$0 + $1}
-            case "−": performOperation {$1 - $0}
-            case "√": performOperation {sqrt($0)}
-            case "÷": performOperation {$1 / $0}
-            case "×": performOperation {$0 * $1}
-            case "sin":performOperation {sin($0)}
-            case "cos":performOperation {cos($0)}
-            case "π":  performOperation {M_PI}
-            case "+/−" :performOperation{self.inv($0)}
-            default : break;
-        }
+        displayValue = brain.performOperation(operation)
     }
     
-    func inv(x: Double)->Double{
-            return (-1)*x
-    }
     
     @IBAction func enter() {
         userInTheMiddleOfTypingNumber = false;
+        
         if let value = displayValue{
-            operandStack.append(value);
-            historyLabel.text = historyLabel.text! + "val:"+"\(value) ";
-            print(operandStack);
+            brain.pushOperand(value)
         }
         
     }
@@ -128,47 +112,13 @@ class ViewController: UIViewController {
         label.text = "0";
         historyLabel.text = "";
         userInTheMiddleOfTypingNumber = false;
-        operandStack.removeAll();
+        brain.clear()
         
     }
     
     
     
-    func performOperation(operation: (Double,Double)->Double){
-        if (operandStack.count>=2){
-            let firstOp = operandStack.removeLast();
-            let secondOp = operandStack.removeLast();
-            displayValue = operation(firstOp,secondOp);
-            
-            historyLabel.text! += "(\(firstOp),\(secondOp)) = "
-            enter()
-        }
-        
-    }
-    
-    
-    @objc (performOperationTwo:)
-    
-    func performOperation(operation: (Double)->Double){
-        if (operandStack.count>=1){
-            let operand = operandStack.removeLast()
-            displayValue = operation(operand);
-            historyLabel.text! += "(\(operand)) = "
-            enter()
-        }
-        
-    }
 
-
-    @objc (performOperationThree:)
-    func performOperation(operation: ()->Double){
-        
-            
-            displayValue = operation();
-            historyLabel.text!+=" ";
-            enter()
-        
-    }
 
 }
 
