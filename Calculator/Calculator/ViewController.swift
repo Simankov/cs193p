@@ -13,7 +13,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var historyLabel: UILabel!
     var userInTheMiddleOfTypingNumber = false;
     var brain  = CalculatorBrain()
-
+    
     @IBOutlet weak var label: UILabel!
     
     @IBAction func appendObject(sender: UIButton) {
@@ -23,7 +23,15 @@ class ViewController: UIViewController {
         switch object {
             case "+/−": changeSign()
             case ".": appendDot()
+            case "x","y": appendVariable(object)
             default : appendDigit(object)
+        }
+    }
+    
+    func appendVariable(symbol:String){
+        if !userInTheMiddleOfTypingNumber{
+            label.text! = symbol
+            enter()
         }
     }
     
@@ -94,6 +102,8 @@ class ViewController: UIViewController {
         
         if let value = displayValue{
             brain.pushOperand(value)
+        } else {
+           displayValue = brain.pushOperand(label.text!)
         }
         
     }

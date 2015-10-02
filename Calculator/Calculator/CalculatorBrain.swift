@@ -15,6 +15,7 @@ class CalculatorBrain {
         case BinaryOperation(String,(Double,Double)->Double)
         case UnaryOperation(String,(Double)->Double)
         case NullaryOperation(String,()->Double)
+        case Variable(String)
         
         var description: String {
             switch (self){
@@ -26,19 +27,45 @@ class CalculatorBrain {
                return symbol
             case .NullaryOperation(let symbol, _):
                return symbol
+            case .Variable(let symbol):
+                return symbol
             }
         }
     }
     private var knownOps = [String:Op]()
     private var operandStack = [Op]()
-    
+    private var variableValues =  Dictionary<String,Double>()
+    typealias PropertyList = AnyObject
+    var program: PropertyList{
+        get{
+            return operandStack.map{
+                $0.description
+            }
+        }
+        
+        set{
+            var newOpStack = [Op]()
+            let strings = newValue as! [String];
+            for string in strings{
+                if let operation = knownOps[string]{
+                    newOpStack.append(operation)
+                } else {
+                    if let operand = NSNumberFormatter().numberFromString(string)?.doubleValue{
+                        newOpStack.append(.Operand(operand))
+                    }
+                }
+            }
+            
+            operandStack = newOpStack
+        }
+    }
     init(){
         func loadOp(o : Op){
             knownOps[o.description] = o;
         }
         
         loadOp(Op.BinaryOperation("+", +))
-        loadOp(Op.BinaryOperation("*", *))
+        loadOp(Op.BinaryOperation("×", *))
         loadOp(Op.BinaryOperation("−"){$1-$0})
         loadOp(Op.BinaryOperation("/"){$1/$0})
         loadOp(Op.UnaryOperation("√", sqrt))
@@ -56,8 +83,7 @@ class CalculatorBrain {
     if (!ops.isEmpty){
         var operandStack = ops;
         let operand = operandStack.removeLast()
-        switch(operand){
-        case .Operand(let operand):
+        switch(operand){        case .Operand(let operand):
             return (operand,operandStack)
         case .NullaryOperation(_, let operation):
             return (operation(), operandStack)
@@ -73,6 +99,16 @@ class CalculatorBrain {
                 let value2 = evaluate(value1.remainingOps)
                 if let operand2 = value2.result{
                     return (operation(operand1,operand2),value2.remainingOps)
+                }
+            }
+        case .Variable(let symbol):
+            if let value = variableValues[symbol]{
+                return (value,operandStack)
+            } else {
+                let result = evaluate(operandStack)
+                if let resultValue = result.result{
+                    variableValues[symbol]=resultValue
+                    return (resultValue,result.remainingOps)
                 }
             }
         }
@@ -95,6 +131,12 @@ class CalculatorBrain {
     func pushOperand(operand : Double){
         operandStack.append(Op.Operand(operand))
         evaluate()
+    }
+    
+    func pushOperand(symbol: String) -> Double?{
+        
+        operandStack.append(Op.Variable(symbol))
+        return evaluate()
     }
     
     func performOperation(operation: String) -> Double?{
