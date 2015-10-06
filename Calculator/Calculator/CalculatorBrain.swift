@@ -10,22 +10,37 @@ import Foundation
 
 
 class CalculatorBrain {
+    struct Precedence{
+        static let highPrecedence:Int = Int.max
+        static let middlePrecedence:Int = 0
+        static let lowPrecedence:Int = Int.min
+    }
+    
     private enum Op {
         case Operand(Double)
-        case BinaryOperation(String,(Double,Double)->Double)
+        case BinaryOperation(String,(Double,Double)->Double,Int)
         case UnaryOperation(String,(Double)->Double)
-        case NullaryOperation(String,()->Double)
+        case Constant(String,()->Double)
         case Variable(String)
+        
+        var precedence: Int {
+            switch self{
+            case .Operand(_),.UnaryOperation(_, _),.Variable(_),.Constant(_, _):
+                return Precedence.highPrecedence
+            case .BinaryOperation(_, _, let precedence):
+                return precedence
+            }
+        }
         
         var description: String {
             switch (self){
             case .Operand(let operand):
                 return "\(operand)"
-            case .BinaryOperation(let symbol, _):
+            case .BinaryOperation(let symbol, _,_):
                return symbol
             case .UnaryOperation(let symbol, _):
                return symbol
-            case .NullaryOperation(let symbol, _):
+            case .Constant(let symbol, _):
                return symbol
             case .Variable(let symbol):
                 return symbol
@@ -35,6 +50,85 @@ class CalculatorBrain {
     private var knownOps = [String:Op]()
     private var operandStack = [Op]()
     private var variableValues =  Dictionary<String,Double>()
+    
+    var description :String{
+        return describe().joinWithSeparator(",")
+    }
+    
+    private func describe()->[String]{
+       
+        
+        var opStack = operandStack
+        var fullDescription = [String]()
+        repeat{
+            let result = describe(opStack);
+            opStack = result.remainingOps
+        if let description = result.description {
+            fullDescription.append(description)
+        }
+        }
+        while (!opStack.isEmpty)
+        return fullDescription.reverse()
+    }
+    
+    
+    private func describe(opStack: [Op])->(description: String?,remainingOps: [Op],operation: Op?){
+        
+        func formatEquationWithPrecedence(leftArg leftArg:String?,rightArg:String,leftOp: Op?,rightOp: Op?, op:Op)->String{
+            var leftArgument = leftArg ?? "?"
+            var rightArgument = rightArg
+            let rightPrecedence = rightOp?.precedence ?? Precedence.highPrecedence
+            if (op.precedence>rightPrecedence){
+                rightArgument = "("+rightArgument+")"
+            }
+            let leftPrecedence = leftOp?.precedence ?? Precedence.highPrecedence
+            
+            if (op.precedence>leftPrecedence){
+                leftArgument = "("+leftArgument+")"
+            }
+            return leftArgument+op.description+rightArgument
+            
+        }
+    
+        var ops = opStack
+        if (!ops.isEmpty) {
+            let op = ops.removeLast()
+            switch op {
+                case .Operand(let value):
+                    return ("\(value)",ops,op)
+                case .UnaryOperation(let symbol, _):
+                    let result = describe(ops)
+                    if let description = result.description {
+                            return (symbol+"("+description+")",result.remainingOps,op)
+                        } else {
+                        return (symbol+"(?)",ops,op)
+                    }
+                case .BinaryOperation(let symbol, _,_):
+                    
+                    let result1 = describe(ops)
+                    if let description1 = result1.description{
+                        let result2 = describe(result1.remainingOps)
+                        if let description2 = result2.description{
+                            let string = formatEquationWithPrecedence(leftArg: description1, rightArg: description2, leftOp: result1.operation, rightOp: result2.operation, op: op)
+                            return (string,result2.remainingOps,op)
+                        } else {
+                            let string = formatEquationWithPrecedence(leftArg: nil, rightArg: description1, leftOp:nil, rightOp: result1.operation, op: op)
+                            return (string,result1.remainingOps,op)
+                        }
+                    } else {
+                        return ("?"+symbol+"?",ops,op)
+                    }
+            
+                case .Constant(let symbol, _):
+                        return (symbol,ops,op)
+                case .Variable(let symbol):
+                        return (symbol,ops,op)
+            }
+        }
+        
+        return (nil,ops,nil)
+    }
+    
     typealias PropertyList = AnyObject
     var program: PropertyList{
         get{
@@ -64,36 +158,36 @@ class CalculatorBrain {
             knownOps[o.description] = o;
         }
         
-        loadOp(Op.BinaryOperation("+", +))
-        loadOp(Op.BinaryOperation("×", *))
-        loadOp(Op.BinaryOperation("−"){$1-$0})
-        loadOp(Op.BinaryOperation("/"){$1/$0})
+        loadOp(Op.BinaryOperation("+", +,Precedence.lowPrecedence))
+        loadOp(Op.BinaryOperation("×", *,Precedence.middlePrecedence))
+        loadOp(Op.BinaryOperation("−",{$1-$0},Precedence.lowPrecedence))
+        loadOp(Op.BinaryOperation("÷",{$1/$0},Precedence.middlePrecedence))
         loadOp(Op.UnaryOperation("√", sqrt))
         loadOp(Op.UnaryOperation("sin", sin))
         loadOp(Op.UnaryOperation("cos", cos))
         loadOp(Op.UnaryOperation("+/-"){-$0})
-        loadOp(Op.NullaryOperation("π"){M_PI})
+        loadOp(Op.Constant("π"){M_PI})
         
         
         
     }
     
    private func evaluate(ops: [Op]) -> (result:Double?,remainingOps: [Op]){
-        
+
     if (!ops.isEmpty){
         var operandStack = ops;
         let operand = operandStack.removeLast()
         switch(operand){        case .Operand(let operand):
             return (operand,operandStack)
-        case .NullaryOperation(_, let operation):
+        case .Constant(_, let operation):
             return (operation(), operandStack)
             
         case .UnaryOperation(_, let operation):
             let value = evaluate(operandStack)
             if let operand = value.result {
-                return (operation(operand), operandStack)
+                return (operation(operand), value.remainingOps)
             }
-        case .BinaryOperation(_, let operation):
+        case .BinaryOperation(_, let operation,_):
             let value1 = evaluate(operandStack)
             if let operand1 = value1.result {
                 let value2 = evaluate(value1.remainingOps)
@@ -105,11 +199,7 @@ class CalculatorBrain {
             if let value = variableValues[symbol]{
                 return (value,operandStack)
             } else {
-                let result = evaluate(operandStack)
-                if let resultValue = result.result{
-                    variableValues[symbol]=resultValue
-                    return (resultValue,result.remainingOps)
-                }
+                return (nil,operandStack)
             }
         }
         
@@ -123,14 +213,21 @@ class CalculatorBrain {
         operandStack.removeAll()
     }
     
-    func evaluate()->Double?{
-        let (result,_) = evaluate(operandStack)
+    private func evaluate()->Double?{
+        let (result, _) = evaluate(operandStack)
+        print(description)
         return result
     }
     
-    func pushOperand(operand : Double){
+    func pushOperand(operand : Double)->Double?{
         operandStack.append(Op.Operand(operand))
-        evaluate()
+        return evaluate()
+    }
+    
+    func setOperand(symbol: String,value: Double)->Double?{
+        
+        variableValues[symbol]=value
+        return evaluate()
     }
     
     func pushOperand(symbol: String) -> Double?{
@@ -142,6 +239,15 @@ class CalculatorBrain {
     func performOperation(operation: String) -> Double?{
         if let op = knownOps[operation]{
             operandStack.append(op)
+            return evaluate()
+        }
+        return nil
+    }
+    
+    
+    func undoLastOperation()->Double?{
+        if !operandStack.isEmpty{
+            operandStack.removeLast()
             return evaluate()
         }
         return nil

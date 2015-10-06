@@ -11,7 +11,13 @@ import UIKit
 class ViewController: UIViewController {
     
     @IBOutlet weak var historyLabel: UILabel!
-    var userInTheMiddleOfTypingNumber = false;
+    var userInTheMiddleOfTypingNumber = false {
+        didSet{
+            if userInTheMiddleOfTypingNumber{
+            historyLabel.text! = String(historyLabel.text!.characters.dropLast())
+            }
+        }
+    }
     var brain  = CalculatorBrain()
     
     @IBOutlet weak var label: UILabel!
@@ -23,16 +29,25 @@ class ViewController: UIViewController {
         switch object {
             case "+/−": changeSign()
             case ".": appendDot()
-            case "x","y": appendVariable(object)
+            case "x": appendVariable(object)
+            case "→x": setVariable("x")
             default : appendDigit(object)
         }
     }
     
     func appendVariable(symbol:String){
         if !userInTheMiddleOfTypingNumber{
-            label.text! = symbol
-            enter()
+            brain.pushOperand(symbol)
         }
+    }
+    
+    func setVariable(symbol:String){
+        
+            if let value = displayValue{
+                displayValue = brain.setOperand(symbol,value: value)
+                userInTheMiddleOfTypingNumber = false
+            }
+            
     }
     
     func appendDot(){
@@ -53,6 +68,8 @@ class ViewController: UIViewController {
             } else {
                 label.text! = String(label.text!.characters.dropFirst());
             }
+        } else {
+            brain.performOperation("+/-")
         }
     }
     
@@ -66,20 +83,15 @@ class ViewController: UIViewController {
     }
     
     var displayValue: Double? {
-        get{
-            
-            return NSNumberFormatter().numberFromString(label.text!)?.doubleValue;
-            
-        }
+        get{ return NSNumberFormatter().numberFromString(label.text!)?.doubleValue; }
         set{
-            
             if (newValue != nil){
-            userInTheMiddleOfTypingNumber = false;
-            label.text = "\(newValue!)"
+                userInTheMiddleOfTypingNumber = false;
+                label.text = "\(newValue!)"
+            } else {
+                label.text = " ";
             }
-            else {
-            label.text = "";
-            }
+            historyLabel.text! = brain.description + "="
         }
     }
 
@@ -88,41 +100,43 @@ class ViewController: UIViewController {
         let operation = sender.currentTitle!;
         
         if userInTheMiddleOfTypingNumber {
-            if (operation == "+/−"){
-                return
-            }
             enter();
         }
         displayValue = brain.performOperation(operation)
+    
     }
     
     
     @IBAction func enter() {
         userInTheMiddleOfTypingNumber = false;
-        
         if let value = displayValue{
-            brain.pushOperand(value)
-        } else {
-           displayValue = brain.pushOperand(label.text!)
+           displayValue = brain.pushOperand(value)
         }
+        
         
     }
     
     
     @IBAction func backspace() {
-       if (label.text!.characters.count>=2){
-            label.text! = String(label.text!.characters.dropLast())
-       } else {
-            label.text!="0";
-        userInTheMiddleOfTypingNumber = false;
+        
+        if userInTheMiddleOfTypingNumber {
+            if (label.text!.characters.count>=2){
+                label.text! = String(label.text!.characters.dropLast())
+            } else {
+                label.text!="0";
+                userInTheMiddleOfTypingNumber = false;
+            }
+            
+        } else {
+            displayValue = brain.undoLastOperation()
         }
     }
     
     @IBAction func clear() {
         label.text = "0";
-        historyLabel.text = "";
+        historyLabel.text = " ";
         userInTheMiddleOfTypingNumber = false;
-        brain.clear()
+        brain = CalculatorBrain();
         
     }
     
