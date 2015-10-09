@@ -94,16 +94,24 @@ class CalculatorBrain {
         if (!ops.isEmpty) {
             let op = ops.removeLast()
             switch op {
-                case .Operand(let value):
-                    return ("\(value)",ops,op)
-                case .UnaryOperation(let symbol, _):
+                case .Operand:
+                    return (op.description,ops,op)
+                case .UnaryOperation(let symbol,_):
+                    var operation: String
                     let result = describe(ops)
-                    if let description = result.description {
-                            return (symbol+"("+description+")",result.remainingOps,op)
-                        } else {
-                        return (symbol+"(?)",ops,op)
+                    
+                    if symbol == "+|-" {
+                        operation = "-"
+                    } else {
+                        operation = op.description
                     }
-                case .BinaryOperation(let symbol, _,_):
+                    
+                    if let description = result.description {
+                            return (operation+"("+description+")",result.remainingOps,op)
+                        } else {
+                        return (operation+"(?)",ops,op)
+                    }
+                case .BinaryOperation:
                     
                     let result1 = describe(ops)
                     if let description1 = result1.description{
@@ -116,13 +124,13 @@ class CalculatorBrain {
                             return (string,result1.remainingOps,op)
                         }
                     } else {
-                        return ("?"+symbol+"?",ops,op)
+                        return ("?"+op.description+"?",ops,op)
                     }
             
-                case .Constant(let symbol, _):
-                        return (symbol,ops,op)
-                case .Variable(let symbol):
-                        return (symbol,ops,op)
+                case .Constant:
+                        return (op.description,ops,op)
+                case .Variable:
+                        return (op.description,ops,op)
             }
         }
         
@@ -165,7 +173,7 @@ class CalculatorBrain {
         loadOp(Op.UnaryOperation("√", sqrt))
         loadOp(Op.UnaryOperation("sin", sin))
         loadOp(Op.UnaryOperation("cos", cos))
-        loadOp(Op.UnaryOperation("+/-"){-$0})
+        loadOp(Op.UnaryOperation("+|-"){-$0})
         loadOp(Op.Constant("π"){M_PI})
         
         
