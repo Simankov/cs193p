@@ -22,12 +22,13 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var label: UILabel!
     
+
     @IBAction func appendObject(sender: UIButton) {
         
         let object = sender.currentTitle!;
         
         switch object {
-            case "+/−": changeSign()
+            case "+|-": changeSign(sender)
             case ".": appendDot()
             case "x": appendVariable(object)
             case "→x": setVariable("x")
@@ -37,7 +38,7 @@ class ViewController: UIViewController {
     
     func appendVariable(symbol:String){
         if !userInTheMiddleOfTypingNumber{
-            brain.pushOperand(symbol)
+            displayValue = brain.pushOperand(symbol)
         }
     }
     
@@ -61,7 +62,7 @@ class ViewController: UIViewController {
         }
     }
     
-    func changeSign(){
+    func changeSign(sender: UIButton){
         if (userInTheMiddleOfTypingNumber){
             if (displayValue>0){
                 label.text! = "-" + label.text!
@@ -69,7 +70,7 @@ class ViewController: UIViewController {
                 label.text! = String(label.text!.characters.dropFirst());
             }
         } else {
-            brain.performOperation("+/-")
+            operate(sender)
         }
     }
     
@@ -83,11 +84,14 @@ class ViewController: UIViewController {
     }
     
     var displayValue: Double? {
-        get{ return NSNumberFormatter().numberFromString(label.text!)?.doubleValue; }
+        get{
+            return NSNumberFormatter().numberFromString(label.text!)?.doubleValue
+        }
+       
         set{
             if (newValue != nil){
                 userInTheMiddleOfTypingNumber = false;
-                label.text = "\(newValue!)"
+                label.text = String(format: "%.3f", newValue!)
             } else {
                 label.text = " ";
             }
@@ -139,10 +143,8 @@ class ViewController: UIViewController {
         brain = CalculatorBrain();
         
     }
-    
-    
-    
-
-
 }
+
+    
+
 
