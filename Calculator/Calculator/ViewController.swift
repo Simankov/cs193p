@@ -11,10 +11,10 @@ import UIKit
 class ViewController: UIViewController {
     
     @IBOutlet weak var historyLabel: UILabel!
-    var userInTheMiddleOfTypingNumber = false {
+    var userInTheMiddleOfTypingNumber: Bool = false {
         didSet{
             if userInTheMiddleOfTypingNumber{
-            historyLabel.text! = String(historyLabel.text!.characters.dropLast())
+            historyLabel.text! = String(dropLast(historyLabel.text!))
             }
         }
     }
@@ -67,7 +67,7 @@ class ViewController: UIViewController {
             if (displayValue>0){
                 label.text! = "-" + label.text!
             } else {
-                label.text! = String(label.text!.characters.dropFirst());
+                label.text! = String(dropLast(label.text!));
             }
         } else {
             operate(sender)
@@ -124,8 +124,8 @@ class ViewController: UIViewController {
     @IBAction func backspace() {
         
         if userInTheMiddleOfTypingNumber {
-            if (label.text!.characters.count>=2){
-                label.text! = String(label.text!.characters.dropLast())
+            if (countElements(label.text!)>=2){
+                label.text! = String(dropLast(label.text!))
             } else {
                 label.text!="0";
                 userInTheMiddleOfTypingNumber = false;

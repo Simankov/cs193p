@@ -52,7 +52,7 @@ class CalculatorBrain {
     private var variableValues =  Dictionary<String,Double>()
     
     var description :String{
-        return describe().joinWithSeparator(",")
+        return describe().description
     }
     
     private func describe()->[String]{
@@ -60,12 +60,12 @@ class CalculatorBrain {
         
         var opStack = operandStack
         var fullDescription = [String]()
-        repeat{
+        do{
             let result = describe(opStack);
             opStack = result.remainingOps
         if let description = result.description {
-            fullDescription.append(description)
-        }
+            fullDescription.append(description+",")
+            }
         }
         while (!opStack.isEmpty)
         return fullDescription.reverse()
@@ -74,7 +74,7 @@ class CalculatorBrain {
     
     private func describe(opStack: [Op])->(description: String?,remainingOps: [Op],operation: Op?){
         
-        func formatEquationWithPrecedence(leftArg leftArg:String?,rightArg:String,leftOp: Op?,rightOp: Op?, op:Op)->String{
+        func formatEquationWithPrecedence(leftArg leftArg:String?,#rightArg:String,#leftOp: Op?,#rightOp: Op?, #op:Op)->String{
             var leftArgument = leftArg ?? "?"
             var rightArgument = rightArg
             let rightPrecedence = rightOp?.precedence ?? Precedence.highPrecedence
@@ -147,7 +147,7 @@ class CalculatorBrain {
         
         set{
             var newOpStack = [Op]()
-            let strings = newValue as! [String];
+            let strings = newValue as [String];
             for string in strings{
                 if let operation = knownOps[string]{
                     newOpStack.append(operation)

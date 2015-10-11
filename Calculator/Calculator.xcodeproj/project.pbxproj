@@ -7,13 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8487AFBD1BCA969C002F168B /* CalculatorBrain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8487AFBC1BCA969C002F168B /* CalculatorBrain.swift */; };
 		A5C080AC1BB75A40005B90B2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5C080AB1BB75A40005B90B2 /* AppDelegate.swift */; };
 		A5C080AE1BB75A40005B90B2 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5C080AD1BB75A40005B90B2 /* ViewController.swift */; };
 		A5C080B11BB75A40005B90B2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A5C080AF1BB75A40005B90B2 /* Main.storyboard */; };
 		A5C080B31BB75A40005B90B2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A5C080B21BB75A40005B90B2 /* Assets.xcassets */; };
-		A5C080B61BB75A40005B90B2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A5C080B41BB75A40005B90B2 /* LaunchScreen.storyboard */; };
-		A5C080C11BB75A40005B90B2 /* CaclulatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5C080C01BB75A40005B90B2 /* CaclulatorTests.swift */; };
-		A5C080CC1BB75A40005B90B2 /* CaclulatorUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5C080CB1BB75A40005B90B2 /* CaclulatorUITests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,18 +32,16 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		8487AFBC1BCA969C002F168B /* CalculatorBrain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalculatorBrain.swift; sourceTree = "<group>"; };
 		A5C080A81BB75A40005B90B2 /* Calculator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Calculator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A5C080AB1BB75A40005B90B2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A5C080AD1BB75A40005B90B2 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		A5C080B01BB75A40005B90B2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		A5C080B21BB75A40005B90B2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		A5C080B51BB75A40005B90B2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A5C080B71BB75A40005B90B2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		A5C080BC1BB75A40005B90B2 /* Calculator.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Calculator.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		A5C080C01BB75A40005B90B2 /* CaclulatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaclulatorTests.swift; sourceTree = "<group>"; };
+		A5C080BC1BB75A40005B90B2 /* Calculator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Calculator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A5C080C21BB75A40005B90B2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		A5C080C71BB75A40005B90B2 /* Calculator.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Calculator.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		A5C080CB1BB75A40005B90B2 /* CaclulatorUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaclulatorUITests.swift; sourceTree = "<group>"; };
+		A5C080C71BB75A40005B90B2 /* Calculator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Calculator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A5C080CD1BB75A40005B90B2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -88,8 +84,8 @@
 			isa = PBXGroup;
 			children = (
 				A5C080A81BB75A40005B90B2 /* Calculator.app */,
-				A5C080BC1BB75A40005B90B2 /* Calculator.xctest */,
-				A5C080C71BB75A40005B90B2 /* Calculator.xctest */,
+				A5C080BC1BB75A40005B90B2 /* Calculator.app */,
+				A5C080C71BB75A40005B90B2 /* Calculator.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -99,9 +95,9 @@
 			children = (
 				A5C080AB1BB75A40005B90B2 /* AppDelegate.swift */,
 				A5C080AD1BB75A40005B90B2 /* ViewController.swift */,
+				8487AFBC1BCA969C002F168B /* CalculatorBrain.swift */,
 				A5C080AF1BB75A40005B90B2 /* Main.storyboard */,
 				A5C080B21BB75A40005B90B2 /* Assets.xcassets */,
-				A5C080B41BB75A40005B90B2 /* LaunchScreen.storyboard */,
 				A5C080B71BB75A40005B90B2 /* Info.plist */,
 			);
 			path = Calculator;
@@ -110,7 +106,6 @@
 		A5C080BF1BB75A40005B90B2 /* CalculatorTests */ = {
 			isa = PBXGroup;
 			children = (
-				A5C080C01BB75A40005B90B2 /* CaclulatorTests.swift */,
 				A5C080C21BB75A40005B90B2 /* Info.plist */,
 			);
 			path = CalculatorTests;
@@ -119,7 +114,6 @@
 		A5C080CA1BB75A40005B90B2 /* CalculatorUITests */ = {
 			isa = PBXGroup;
 			children = (
-				A5C080CB1BB75A40005B90B2 /* CaclulatorUITests.swift */,
 				A5C080CD1BB75A40005B90B2 /* Info.plist */,
 			);
 			path = CalculatorUITests;
@@ -160,8 +154,8 @@
 			);
 			name = CalculatorTests;
 			productName = CaclulatorTests;
-			productReference = A5C080BC1BB75A40005B90B2 /* Calculator.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
+			productReference = A5C080BC1BB75A40005B90B2 /* Calculator.app */;
+			productType = "com.apple.product-type.application";
 		};
 		A5C080C61BB75A40005B90B2 /* CalculatorUITests */ = {
 			isa = PBXNativeTarget;
@@ -178,8 +172,8 @@
 			);
 			name = CalculatorUITests;
 			productName = CaclulatorUITests;
-			productReference = A5C080C71BB75A40005B90B2 /* Calculator.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
+			productReference = A5C080C71BB75A40005B90B2 /* Calculator.app */;
+			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
 
@@ -228,7 +222,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A5C080B61BB75A40005B90B2 /* LaunchScreen.storyboard in Resources */,
 				A5C080B31BB75A40005B90B2 /* Assets.xcassets in Resources */,
 				A5C080B11BB75A40005B90B2 /* Main.storyboard in Resources */,
 			);
@@ -255,6 +248,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8487AFBD1BCA969C002F168B /* CalculatorBrain.swift in Sources */,
 				A5C080AE1BB75A40005B90B2 /* ViewController.swift in Sources */,
 				A5C080AC1BB75A40005B90B2 /* AppDelegate.swift in Sources */,
 			);
@@ -264,7 +258,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A5C080C11BB75A40005B90B2 /* CaclulatorTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -272,7 +265,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A5C080CC1BB75A40005B90B2 /* CaclulatorUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -298,14 +290,6 @@
 				A5C080B01BB75A40005B90B2 /* Base */,
 			);
 			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		A5C080B41BB75A40005B90B2 /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				A5C080B51BB75A40005B90B2 /* Base */,
-			);
-			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -398,6 +382,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				INFOPLIST_FILE = Calculator/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = d.Calculator;
 				PRODUCT_NAME = Calculator;
@@ -408,6 +393,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				INFOPLIST_FILE = Calculator/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = d.Calculator;
 				PRODUCT_NAME = Calculator;
@@ -418,7 +404,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				INFOPLIST_FILE = CaclulatorTests/Info.plist;
+				INFOPLIST_FILE = CalculatorTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = d.CaclulatorTests;
 				PRODUCT_NAME = Calculator;
@@ -430,7 +417,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				INFOPLIST_FILE = CaclulatorTests/Info.plist;
+				INFOPLIST_FILE = CalculatorTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = d.CaclulatorTests;
 				PRODUCT_NAME = Calculator;
@@ -441,7 +429,8 @@
 		A5C080D71BB75A40005B90B2 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				INFOPLIST_FILE = CaclulatorUITests/Info.plist;
+				INFOPLIST_FILE = CalculatorUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = d.CaclulatorUITests;
 				PRODUCT_NAME = Calculator;
@@ -453,7 +442,8 @@
 		A5C080D81BB75A40005B90B2 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				INFOPLIST_FILE = CaclulatorUITests/Info.plist;
+				INFOPLIST_FILE = CalculatorUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = d.CaclulatorUITests;
 				PRODUCT_NAME = Calculator;
