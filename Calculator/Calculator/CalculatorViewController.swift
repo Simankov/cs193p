@@ -8,16 +8,10 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class CalculatorViewController: UIViewController {
     
     @IBOutlet weak var historyLabel: UILabel!
-    var userInTheMiddleOfTypingNumber: Bool = false {
-        didSet{
-            if userInTheMiddleOfTypingNumber{
-            historyLabel.text! = String(dropLast(historyLabel.text!))
-            }
-        }
-    }
+    var userInTheMiddleOfTypingNumber: Bool = false 
     var brain  = CalculatorBrain()
     
     @IBOutlet weak var label: UILabel!

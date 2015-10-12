@@ -52,7 +52,7 @@ class CalculatorBrain {
     private var variableValues =  Dictionary<String,Double>()
     
     var description :String{
-        return describe().description
+        return ",".join(describe())
     }
     
     private func describe()->[String]{
@@ -64,7 +64,7 @@ class CalculatorBrain {
             let result = describe(opStack);
             opStack = result.remainingOps
         if let description = result.description {
-            fullDescription.append(description+",")
+            fullDescription.append(description)
             }
         }
         while (!opStack.isEmpty)
@@ -154,6 +154,8 @@ class CalculatorBrain {
                 } else {
                     if let operand = NSNumberFormatter().numberFromString(string)?.doubleValue{
                         newOpStack.append(.Operand(operand))
+                    } else {
+                        newOpStack.append(.Variable(string))
                     }
                 }
             }
@@ -223,7 +225,6 @@ class CalculatorBrain {
     
     private func evaluate()->Double?{
         let (result, _) = evaluate(operandStack)
-        print(description)
         return result
     }
     
