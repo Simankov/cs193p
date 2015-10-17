@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6724" systemVersion="13F1112" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Phq-XT-to2">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6711"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="ayE-be-aAb">
+            <objects>
+                <viewController id="LhY-WJ-PkD" customClass="ViewController" customModule="Cassini" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Zux-1g-BOK"/>
+                        <viewControllerLayoutGuide type="bottom" id="wlo-lE-Aal"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="gzB-Vd-1iK">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="By8-Uu-k0O">
+                                <rect key="frame" x="282" y="247" width="56" height="30"/>
+                                <state key="normal" title="Skopina">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="PMi-5w-S6w" kind="showDetail" identifier="Skopina Segue" id="i2K-lI-Gob"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W2M-E7-rpr">
+                                <rect key="frame" x="282" y="285" width="67" height="30"/>
+                                <state key="normal" title="Cathedral">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="PMi-5w-S6w" kind="showDetail" identifier="Cathedral Segue" id="bNq-8a-Gcz"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rQd-Uy-KD4">
+                                <rect key="frame" x="282" y="323" width="37" height="30"/>
+                                <state key="normal" title="Spbu">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="PMi-5w-S6w" kind="showDetail" identifier="Spbu Segue" id="apY-Yg-POu"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="W2M-E7-rpr" firstAttribute="leading" secondItem="rQd-Uy-KD4" secondAttribute="leading" id="15e-QM-IXX"/>
+                            <constraint firstItem="rQd-Uy-KD4" firstAttribute="top" secondItem="W2M-E7-rpr" secondAttribute="bottom" constant="8" symbolic="YES" id="ECI-0D-Wtw"/>
+                            <constraint firstItem="W2M-E7-rpr" firstAttribute="centerY" secondItem="gzB-Vd-1iK" secondAttribute="centerY" id="SYD-4z-EIH"/>
+                            <constraint firstItem="By8-Uu-k0O" firstAttribute="leading" secondItem="W2M-E7-rpr" secondAttribute="leading" id="Utr-hn-QdJ"/>
+                            <constraint firstItem="W2M-E7-rpr" firstAttribute="top" secondItem="By8-Uu-k0O" secondAttribute="bottom" constant="8" symbolic="YES" id="XzJ-yg-Aot"/>
+                            <constraint firstItem="rQd-Uy-KD4" firstAttribute="centerX" secondItem="gzB-Vd-1iK" secondAttribute="centerX" id="fE2-Rf-PEc"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="JaQ-m0-gby"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="UzA-sb-PDd" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1882" y="-368"/>
+        </scene>
+        <!--Split View Controller-->
+        <scene sceneID="ywE-7v-JAc">
+            <objects>
+                <splitViewController id="Phq-XT-to2" sceneMemberID="viewController">
+                    <connections>
+                        <segue destination="sWo-Lc-Vhu" kind="relationship" relationship="masterViewController" id="Ssh-vD-Vjj"/>
+                    </connections>
+                </splitViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="NB7-cd-ejf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="328" y="-91"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="39R-8K-muB">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="sWo-Lc-Vhu" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Uj6-j9-WKv">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="LhY-WJ-PkD" kind="relationship" relationship="rootViewController" id="D0G-0z-Xcl"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="JqC-bV-rf6" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1070" y="-368"/>
+        </scene>
+        <!--Image View Controller-->
+        <scene sceneID="kkY-iY-taJ">
+            <objects>
+                <viewController id="PMi-5w-S6w" customClass="ImageViewController" customModule="Cassini" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="mFA-kc-IOG"/>
+                        <viewControllerLayoutGuide type="bottom" id="VUD-L1-01D"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="li3-j0-ujH">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="u0G-Pt-FIw" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1053" y="331"/>
+        </scene>
+    </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="i2K-lI-Gob"/>
+    </inferredMetricsTieBreakers>
+</document>
