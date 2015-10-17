@@ -9,7 +9,7 @@
 import UIKit
 
 class GraphCalculatorViewController: CalculatorViewController {
-    
+  
     
     struct GraphCalculator{
         static let segueIdentifier = "Show Graph Calculator"
