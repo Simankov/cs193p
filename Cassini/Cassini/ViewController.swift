@@ -29,6 +29,7 @@ class ViewController: UIViewController {
                 case SegueIdentifiers.Cathedral:
                     imageViewController.imageURL = DemoURL.SaintIsaacsCathedral
                 default: break
+                    
                 }
             }
         }

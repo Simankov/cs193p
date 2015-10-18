@@ -18,18 +18,20 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
             }
         }
     }
+    
+    let spinningWheel = UIActivityIndicatorView(frame: CGRect(origin: CGPointZero, size: CGSize(width: 100, height: 100)))
 
     override func viewDidLoad() {
         super.viewDidLoad()
         scrollView = UIScrollView(frame: view.bounds)
-        scrollView.backgroundColor = UIColor.greenColor()
         
         scrollView.setTranslatesAutoresizingMaskIntoConstraints(false)
-        view.backgroundColor = UIColor.blackColor()
-
+        spinningWheel.setTranslatesAutoresizingMaskIntoConstraints(false)
+        spinningWheel.color = UIColor.blackColor()
         
         scrollView.addSubview(imageView)
         view.addSubview(scrollView)
+        view.addSubview(spinningWheel)
         setupConstraints()
     }
     
@@ -45,12 +47,23 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
     }
     
     func fetchImage(){
+        
         if let imageUrl = imageURL{
-            let imageData = NSData(contentsOfURL: imageUrl)
-            if imageData != nil{
-                image = UIImage(data: imageData!)
-            } else {
-                image = nil
+            let qos = Int(QOS_CLASS_USER_INITIATED.value)
+            let queue = dispatch_get_global_queue(qos, 0)
+            dispatch_async(queue){
+                self.spinningWheel.startAnimating()
+                let imageData = NSData(contentsOfURL: imageUrl)
+                
+                dispatch_async(dispatch_get_main_queue()){
+                    if imageUrl == self.imageURL {
+                        if imageData != nil{
+                            self.image = UIImage(data: imageData!)
+                        } else {
+                            self.image = nil
+                        }
+                    }
+                }
             }
         }
     }
@@ -73,6 +86,24 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
         
         view.addConstraints([
             
+            NSLayoutConstraint(
+                item: spinningWheel,
+                attribute: .CenterX,
+                relatedBy: .Equal,
+                toItem: view,
+                attribute: .CenterX,
+                multiplier: 1,
+                constant: 0),
+            
+            NSLayoutConstraint(
+                item: spinningWheel,
+                attribute: .CenterY,
+                relatedBy: .Equal,
+                toItem: view,
+                attribute: .CenterY,
+                multiplier: 1,
+                constant: 0),
+
 
             NSLayoutConstraint(
                 item: scrollView,
@@ -114,9 +145,11 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
     
     private var image: UIImage?{
         set{
+                spinningWheel.stopAnimating()
                 imageView.image = newValue
                 imageView.sizeToFit()
                 scrollView?.contentSize = imageView.bounds.size //why frame?? unknown for me
+            
             }
         
         get{
