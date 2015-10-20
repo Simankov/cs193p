@@ -53,20 +53,19 @@ class GraphView: UIView {
     var axesDrawer = AxesDrawer()
   
     override func drawRect(rect: CGRect) {
-        let center = convertPoint(self.center, toView: self)
+        let centerOfView = CGPoint(x: CGRectGetMidX(bounds), y: CGRectGetMidY(bounds))
         //default value for origin is center
-        var graphOrigin = origin ?? center
+        var graphOrigin = origin ?? centerOfView
         axesDrawer.contentScaleFactor = self.contentScaleFactor
         axesDrawer.drawAxesInRect(rect, origin: graphOrigin, pointsPerUnit: pointsPerUnit)
-        let offset = graphOrigin - center
+        let offset = graphOrigin - centerOfView
         var isDiscontinuous = true
         let graphic = UIBezierPath()
         var i: CGFloat
         for i = -self.bounds.width/2-offset.x; i < self.bounds.width/2-offset.x; i += 1 {
             
             let x = Double(i)/Double(pointsPerUnit)
-                print("\(x)"+" ")
-            
+         
 
             if var y = dataSource?.valueFor(x,sender: self){
                 if y.isNormal {
@@ -78,7 +77,7 @@ class GraphView: UIView {
                         
                     case false:
                         graphic.addLineToPoint(graphOrigin + CGPoint(x: Double(i), y: -y))
-                        print("\(y)"+" ")
+                     
                     default: break
                     }
                 } else {
