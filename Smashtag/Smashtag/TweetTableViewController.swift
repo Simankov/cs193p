@@ -9,6 +9,11 @@
 import UIKit
 
 class TweeterTableViewController: UITableViewController, UITableViewDelegate,UITableViewDataSource, UITextFieldDelegate{
+    
+    struct Storyboard{
+        static let SegueIdentifierToTweetInfo = "ShowTweetInfo"
+        static let CellReuseIdentificator = "ReusableCell"
+    }
 
     var tweets = [[Tweet]]()
     
@@ -20,6 +25,7 @@ class TweeterTableViewController: UITableViewController, UITableViewDelegate,UIT
         request()
         
     }
+
    
     var searchText: String? = "#spbu"{
         didSet{
@@ -58,9 +64,6 @@ class TweeterTableViewController: UITableViewController, UITableViewDelegate,UIT
             searchField.text = searchText
         }
     }
-    struct Storyboard{
-        static let CellReuseIdentificator = "Reusable cell"
-    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -87,6 +90,10 @@ class TweeterTableViewController: UITableViewController, UITableViewDelegate,UIT
         return cell
     }
     
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        performSegueWithIdentifier(Storyboard.SegueIdentifierToTweetInfo, sender: tweets[indexPath.section][indexPath.row])
+    }
+    
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         if textField == searchField{
             textField.resignFirstResponder()
@@ -95,6 +102,21 @@ class TweeterTableViewController: UITableViewController, UITableViewDelegate,UIT
         }
         
         return true
+    }
+    
+    
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if let identifier = segue.identifier {
+            switch (identifier){
+            case Storyboard.SegueIdentifierToTweetInfo:
+                if let tweetInfoTableViewController = segue.destinationViewController as?TweetInfoTableViewController{
+                    let tweet = sender as? Tweet
+                    tweetInfoTableViewController.tweet = tweet
+                }
+            default: break
+            }
+        }
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
