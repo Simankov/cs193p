@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		840B26FB1BDAC27C00EB1323 /* TweetTextInfoViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840B26FA1BDAC27C00EB1323 /* TweetTextInfoViewCell.swift */; };
+		844BD1A61BDAB40C00B5813E /* TweetInfoTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844BD1A51BDAB40C00B5813E /* TweetInfoTableViewController.swift */; };
+		844BD1AA1BDAB5CE00B5813E /* TweetImageViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844BD1A91BDAB5CE00B5813E /* TweetImageViewCell.swift */; };
 		8497B7701BD3D02700CC948D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8497B76F1BD3D02700CC948D /* AppDelegate.swift */; };
 		8497B7721BD3D02700CC948D /* TweetTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8497B7711BD3D02700CC948D /* TweetTableViewController.swift */; };
 		8497B7751BD3D02700CC948D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8497B7731BD3D02700CC948D /* Main.storyboard */; };
@@ -31,6 +34,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		840B26FA1BDAC27C00EB1323 /* TweetTextInfoViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TweetTextInfoViewCell.swift; sourceTree = "<group>"; };
+		844BD1A51BDAB40C00B5813E /* TweetInfoTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TweetInfoTableViewController.swift; sourceTree = "<group>"; };
+		844BD1A91BDAB5CE00B5813E /* TweetImageViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TweetImageViewCell.swift; sourceTree = "<group>"; };
 		8497B76A1BD3D02700CC948D /* Smashtag.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Smashtag.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8497B76E1BD3D02700CC948D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8497B76F1BD3D02700CC948D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -88,10 +94,13 @@
 		8497B76C1BD3D02700CC948D /* Smashtag */ = {
 			isa = PBXGroup;
 			children = (
+				840B26FA1BDAC27C00EB1323 /* TweetTextInfoViewCell.swift */,
 				8497B76F1BD3D02700CC948D /* AppDelegate.swift */,
 				8497B7711BD3D02700CC948D /* TweetTableViewController.swift */,
 				8497B78F1BD3D07400CC948D /* TweetTableViewCell.swift */,
+				844BD1A51BDAB40C00B5813E /* TweetInfoTableViewController.swift */,
 				8497B7731BD3D02700CC948D /* Main.storyboard */,
+				844BD1A91BDAB5CE00B5813E /* TweetImageViewCell.swift */,
 				8497B7761BD3D02700CC948D /* Images.xcassets */,
 				8497B7781BD3D02700CC948D /* LaunchScreen.xib */,
 				8497B76D1BD3D02700CC948D /* Supporting Files */,
@@ -238,11 +247,14 @@
 			files = (
 				8497B7721BD3D02700CC948D /* TweetTableViewController.swift in Sources */,
 				8497B7971BD3D67000CC948D /* Tweet.swift in Sources */,
+				844BD1AA1BDAB5CE00B5813E /* TweetImageViewCell.swift in Sources */,
 				8497B7961BD3D67000CC948D /* MediaItem.swift in Sources */,
 				8497B7701BD3D02700CC948D /* AppDelegate.swift in Sources */,
+				844BD1A61BDAB40C00B5813E /* TweetInfoTableViewController.swift in Sources */,
 				8497B7901BD3D07400CC948D /* TweetTableViewCell.swift in Sources */,
 				8497B7981BD3D67000CC948D /* TwitterRequest.swift in Sources */,
 				8497B7991BD3D67000CC948D /* User.swift in Sources */,
+				840B26FB1BDAC27C00EB1323 /* TweetTextInfoViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -436,6 +448,7 @@
 				8497B78B1BD3D02700CC948D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		8497B78C1BD3D02700CC948D /* Build configuration list for PBXNativeTarget "SmashtagTests" */ = {
 			isa = XCConfigurationList;
@@ -444,6 +457,7 @@
 				8497B78E1BD3D02700CC948D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
