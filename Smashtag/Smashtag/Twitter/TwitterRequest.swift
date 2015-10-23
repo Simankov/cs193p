@@ -114,6 +114,7 @@ public class TwitterRequest
     // creates an appropriate SLRequest using the specified SLRequestMethod
     // then calls the other version of this method that takes an SLRequest
     // handler is not necessarily called on the main queue
+
     
     func performTwitterRequest(method: SLRequestMethod, handler: (PropertyList?) -> Void) {
         var jsonExtension = (self.requestType.rangeOfString(JSONExtension) == nil) ? JSONExtension : ""

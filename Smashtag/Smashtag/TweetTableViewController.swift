@@ -14,7 +14,7 @@ class TweeterTableViewController: UITableViewController, UITableViewDelegate,UIT
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.estimatedRowHeight = 300
+        tableView.estimatedRowHeight = 600
         tableView.rowHeight = UITableViewAutomaticDimension
         
         request()
@@ -31,10 +31,15 @@ class TweeterTableViewController: UITableViewController, UITableViewDelegate,UIT
     }
         
     func request(){
-        
+        var request : TwitterRequest?
         if let query = searchText {
-        let request = TwitterRequest(search: query, count: 566)
-        request.fetchTweets(){ tweets -> Void in
+            if let lastRequest = lastTwitterRequest{
+                request = lastRequest.requestForNewer
+            } else {
+                request = TwitterRequest(search: query, count: 100)
+            }
+            
+        request?.fetchTweets(){ tweets -> Void in
             dispatch_async(dispatch_get_main_queue())
                 {
                     self.tweets.insert(tweets, atIndex: 0)
@@ -45,8 +50,7 @@ class TweeterTableViewController: UITableViewController, UITableViewDelegate,UIT
         }
     }
     
-    
-
+    var lastTwitterRequest: TwitterRequest?
 
     @IBOutlet weak var searchField: UITextField!{
         didSet{

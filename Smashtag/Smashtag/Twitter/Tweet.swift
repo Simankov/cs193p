@@ -47,6 +47,7 @@ public class Tweet : Printable
                                 keyword = inText.substringWithRange(range)
                             }
                             if prefix == nil || keyword.hasPrefix(prefix!) {
+                                println(keyword)
                                 nsrange = inText.rangeOfString(keyword, nearRange: NSMakeRange(startIndex, endIndex-startIndex))
                                 if nsrange.location != NSNotFound {
                                     return
@@ -135,6 +136,7 @@ private extension NSString {
         var done = false
         while !done {
             let range = rangeOfString(substring, options: NSStringCompareOptions.allZeros, range: NSMakeRange(start, end-start))
+        
             if range.location != NSNotFound {
                 return range
             }
