@@ -22,6 +22,7 @@
 		84CC61A21BDBE5B80083E68D /* Photo.m in Sources */ = {isa = PBXBuildFile; fileRef = 84CC61A11BDBE5B80083E68D /* Photo.m */; };
 		84CC61A51BDBE5B80083E68D /* Photographer.m in Sources */ = {isa = PBXBuildFile; fileRef = 84CC61A41BDBE5B80083E68D /* Photographer.m */; };
 		84CC61A81BDBE6720083E68D /* Photo+Flickr.m in Sources */ = {isa = PBXBuildFile; fileRef = 84CC61A71BDBE6720083E68D /* Photo+Flickr.m */; };
+		84D8D3121BDEBCDB004DC078 /* AppDelegate+MOC.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D8D3111BDEBCDB004DC078 /* AppDelegate+MOC.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,6 +65,9 @@
 		84CC61A41BDBE5B80083E68D /* Photographer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Photographer.m; sourceTree = "<group>"; };
 		84CC61A61BDBE6560083E68D /* Photo+Flickr.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Photo+Flickr.h"; sourceTree = "<group>"; };
 		84CC61A71BDBE6720083E68D /* Photo+Flickr.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Photo+Flickr.m"; sourceTree = "<group>"; };
+		84D8D3101BDEBCDB004DC078 /* AppDelegate+MOC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AppDelegate+MOC.h"; sourceTree = "<group>"; };
+		84D8D3111BDEBCDB004DC078 /* AppDelegate+MOC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AppDelegate+MOC.m"; sourceTree = "<group>"; };
+		84D8D3131BDFBA66004DC078 /* PhotoDatabaseAvailability.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PhotoDatabaseAvailability.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,11 +101,14 @@
 		84CC616B1BDBE3E70083E68D = {
 			isa = PBXGroup;
 			children = (
+				84D8D3101BDEBCDB004DC078 /* AppDelegate+MOC.h */,
+				84D8D3111BDEBCDB004DC078 /* AppDelegate+MOC.m */,
 				843C181F1BDD2AE300CC7E42 /* Photographer+Create.h */,
 				843C18201BDD2AE300CC7E42 /* Photographer+Create.m */,
 				843C181A1BDD122A00CC7E42 /* Flickr Fetcher */,
 				84CC61A61BDBE6560083E68D /* Photo+Flickr.h */,
 				84CC61A71BDBE6720083E68D /* Photo+Flickr.m */,
+				84D8D3131BDFBA66004DC078 /* PhotoDatabaseAvailability.h */,
 				843C18221BDD2F5B00CC7E42 /* CoreDataTableViewController.h */,
 				843C18231BDD2F5B00CC7E42 /* CoreDataTableViewController.m */,
 				843C18251BDD408E00CC7E42 /* PhotographerCDTV.h */,
@@ -273,6 +280,7 @@
 				84CC617D1BDBE3E70083E68D /* AppDelegate.m in Sources */,
 				843C18211BDD2AE300CC7E42 /* Photographer+Create.m in Sources */,
 				84CC617A1BDBE3E70083E68D /* main.m in Sources */,
+				84D8D3121BDEBCDB004DC078 /* AppDelegate+MOC.m in Sources */,
 				84CC61A21BDBE5B80083E68D /* Photo.m in Sources */,
 				84CC61A51BDBE5B80083E68D /* Photographer.m in Sources */,
 				843C181E1BDD122A00CC7E42 /* FlickrFetcher.m in Sources */,
