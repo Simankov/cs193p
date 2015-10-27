@@ -8,9 +8,15 @@
 
 #import "PhotographerCDTV.h"
 #import "Photographer.h"
+#import "PhotoDatabaseAvailability.h"
 @implementation PhotographerCDTV
 
--(UITableViewCell*) cellForRowAtIndexPath: (NSIndexPath*)indexPath{
+-(void)awakeFromNib{
+    [[NSNotificationCenter defaultCenter]addObserverForName:PhotoDatabaseAvailabilityNotification object:nil queue:nil usingBlock:^(NSNotification *note) {
+        self.managedObjectContext = note.userInfo[PhotoDatabaseAvailabilityNotificationContext];
+    }];
+}
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     UITableViewCell* cell = [self.tableView dequeueReusableCellWithIdentifier: @"Photographer Cell"];
     Photographer * photographer = [self.fetchedResultController objectAtIndexPath:indexPath];
     cell.textLabel.text = photographer.name;
@@ -18,19 +24,21 @@
     return cell;
 }
 
+
 -(void)setManagedObjectContext:(NSManagedObjectContext *)managedObjectContext{
+    _managedObjectContext = managedObjectContext;
     NSFetchRequest * request = [[NSFetchRequest alloc]initWithEntityName:@"Photographer"];
     NSPredicate * all = nil;
                                 NSSortDescriptor * sort = [[NSSortDescriptor alloc] initWithKey:@"name"
                                                                                     ascending:(YES)
                                                                                        selector:@selector(localizedStandardCompare:)];
     request.predicate = all;
+    request.sortDescriptors = @[sort];
     self.fetchedResultController = [[NSFetchedResultsController alloc] initWithFetchRequest:request
                                                                        managedObjectContext:managedObjectContext
                                                                          sectionNameKeyPath:nil
                                                                                   cacheName:nil];
-                                
-                                
+
 }
 
 @end

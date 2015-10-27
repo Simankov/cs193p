@@ -13,15 +13,16 @@
 {
     Photographer * photographer = nil;
     NSFetchRequest * request = [NSFetchRequest fetchRequestWithEntityName:@"Photographer"];
-    request.predicate = [NSPredicate predicateWithFormat:@"name=@%",name];
+    request.predicate = [NSPredicate predicateWithFormat:@"name=%@",name];
     NSError *error= nil;
     NSArray *matches = [context executeFetchRequest:request error:&error];
     if (error || !matches || [matches count]>1){
         //handle errors
+//        photographer = nil;
     } else if ([matches count]){
         photographer = [matches firstObject];
     } else {
-        photographer = [NSEntityDescription insertNewObjectForEntityForName:@"Photo" inManagedObjectContext:context];
+        photographer = [NSEntityDescription insertNewObjectForEntityForName:@"Photographer" inManagedObjectContext:context];
         photographer.name = name;
     }
     
