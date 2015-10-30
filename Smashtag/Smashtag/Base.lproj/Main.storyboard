@@ -122,15 +122,19 @@
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="smT-YD-fvj" id="rap-Rn-qvD">
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" misplaced="YES" text="tweetInfo" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="joa-kB-aAY">
-                                            <rect key="frame" x="8" y="9" width="72" height="21"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" text="tweetInfo" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="joa-kB-aAY">
+                                            <rect key="frame" x="8" y="8" width="584" height="34"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
                                     <constraints>
+                                        <constraint firstAttribute="centerY" secondItem="joa-kB-aAY" secondAttribute="centerY" id="9Vi-tH-zIX"/>
+                                        <constraint firstAttribute="centerX" secondItem="joa-kB-aAY" secondAttribute="centerX" id="Dk1-w2-ZqY"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="joa-kB-aAY" secondAttribute="bottom" id="ZHZ-1h-gMj"/>
                                         <constraint firstItem="joa-kB-aAY" firstAttribute="top" secondItem="rap-Rn-qvD" secondAttribute="topMargin" id="cdM-fN-aoA"/>
+                                        <constraint firstItem="joa-kB-aAY" firstAttribute="trailing" secondItem="rap-Rn-qvD" secondAttribute="trailingMargin" id="fZ8-JX-COA"/>
                                         <constraint firstItem="joa-kB-aAY" firstAttribute="leading" secondItem="rap-Rn-qvD" secondAttribute="leadingMargin" id="hTY-BD-KMt"/>
                                     </constraints>
                                 </tableViewCellContentView>
@@ -138,23 +142,22 @@
                                     <outlet property="tweetInfo" destination="joa-kB-aAY" id="g6w-Ll-TBz"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TweetImageCell" rowHeight="163" id="SK2-dd-lfE" customClass="TweetImageViewCell" customModule="Smashtag" customModuleProvider="target">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TweetImageCell" rowHeight="190" id="SK2-dd-lfE" customClass="TweetImageViewCell" customModule="Smashtag" customModuleProvider="target">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="SK2-dd-lfE" id="fF9-jp-HbS">
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NcT-uc-UZr">
-                                            <rect key="frame" x="8" y="11" width="150" height="144"/>
-                                            <constraints>
-                                                <constraint firstAttribute="width" constant="150" id="Fiz-J5-cjk"/>
-                                                <constraint firstAttribute="height" constant="150" id="jEJ-4H-aTZ"/>
-                                            </constraints>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="NcT-uc-UZr">
+                                            <rect key="frame" x="8" y="8" width="584" height="173"/>
                                         </imageView>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="NcT-uc-UZr" firstAttribute="leading" secondItem="fF9-jp-HbS" secondAttribute="leadingMargin" id="IrI-j4-nm5"/>
-                                        <constraint firstItem="NcT-uc-UZr" firstAttribute="top" secondItem="fF9-jp-HbS" secondAttribute="topMargin" constant="1" id="NrO-XR-QMe"/>
-                                        <constraint firstAttribute="bottomMargin" secondItem="NcT-uc-UZr" secondAttribute="bottom" constant="-1" id="khc-XJ-jE2"/>
+                                        <constraint firstItem="NcT-uc-UZr" firstAttribute="bottom" secondItem="fF9-jp-HbS" secondAttribute="bottomMargin" id="0wp-Ce-TB4"/>
+                                        <constraint firstAttribute="centerY" secondItem="NcT-uc-UZr" secondAttribute="centerY" id="6Vf-hs-2Lf"/>
+                                        <constraint firstItem="NcT-uc-UZr" firstAttribute="trailing" secondItem="fF9-jp-HbS" secondAttribute="trailingMargin" id="QRa-tp-ntA"/>
+                                        <constraint firstItem="NcT-uc-UZr" firstAttribute="leading" secondItem="fF9-jp-HbS" secondAttribute="leadingMargin" id="dzp-6y-yNS"/>
+                                        <constraint firstItem="NcT-uc-UZr" firstAttribute="top" secondItem="fF9-jp-HbS" secondAttribute="topMargin" id="se9-7M-THv"/>
+                                        <constraint firstAttribute="centerX" secondItem="NcT-uc-UZr" secondAttribute="centerX" id="wZc-jm-JFk"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
@@ -170,7 +173,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="C97-7x-IkI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="870" y="-55"/>
+            <point key="canvasLocation" x="870" y="-62"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="4PG-Wm-wZF">
