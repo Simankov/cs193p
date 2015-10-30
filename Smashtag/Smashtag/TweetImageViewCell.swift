@@ -18,18 +18,23 @@ class TweetImageViewCell: UITableViewCell{
     }
     
     
-    var imageURL : NSURL?{
+    var imageURLString: String?{
         didSet{
-            updateUI()
+            if imageURLString != nil {
+                imageURL = NSURL(string: imageURLString!)
+                updateUI()
+            }
         }
     }
+    
+    var imageURL : NSURL?
     
     
     
     func updateUI(){
-        
+        if imageURL != nil {
             
-            let qos = Int(QOS_CLASS_USER_INITIATED.value)
+          let qos = Int(QOS_CLASS_USER_INITIATED.value);
             if let url = imageURL{
                 dispatch_async(dispatch_get_global_queue(qos, 0)){
                     if let imageData = NSData(contentsOfURL: url){
@@ -37,7 +42,7 @@ class TweetImageViewCell: UITableViewCell{
                         dispatch_async(dispatch_get_main_queue()){
                             if url == self.imageURL{
                                 self.tweetImage = UIImage(data: imageData)
-                                self.setNeedsLayout()
+                                
                             }
                         }
                     }
@@ -45,5 +50,6 @@ class TweetImageViewCell: UITableViewCell{
                 
             }
         }
+    }
 }
 

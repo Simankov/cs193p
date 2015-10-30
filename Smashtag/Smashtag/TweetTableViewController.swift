@@ -90,6 +90,7 @@ class TweeterTableViewController: UITableViewController, UITableViewDelegate,UIT
         return cell
     }
     
+    
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         performSegueWithIdentifier(Storyboard.SegueIdentifierToTweetInfo, sender: tweets[indexPath.section][indexPath.row])
     }
@@ -103,8 +104,6 @@ class TweeterTableViewController: UITableViewController, UITableViewDelegate,UIT
         
         return true
     }
-    
-    
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if let identifier = segue.identifier {

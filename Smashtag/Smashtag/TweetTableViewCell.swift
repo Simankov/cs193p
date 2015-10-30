@@ -60,8 +60,10 @@ class TweetTableViewCell: UITableViewCell {
             dispatch_async(queue){
                 if let data = NSData(contentsOfURL: url){
                     if let image = UIImage(data: data){
-                    dispatch_async(dispatch_get_main_queue()){
-                        self.imageOfUser.image = image
+                        if url == self.tweet?.user.profileImageURL{
+                            dispatch_async(dispatch_get_main_queue()){
+                                self.imageOfUser.image = image
+                            }
                         }
                     }
                 }
