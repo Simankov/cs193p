@@ -8,7 +8,7 @@
         <!--Twittes-->
         <scene sceneID="eYD-Vo-c1M">
             <objects>
-                <tableViewController id="rox-0B-Eke" customClass="TweeterTableViewController" customModule="Smashtag" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="rox-0B-Eke" customClass="TweetTableViewController" customModule="Smashtag" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="198" sectionHeaderHeight="22" sectionFooterHeight="22" id="U7a-V8-HOJ">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -20,7 +20,7 @@
                             <textInputTraits key="textInputTraits"/>
                         </textField>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="ReusableCell" rowHeight="198" id="Gd5-Db-DD6" customClass="TweetTableViewCell" customModule="Smashtag" customModuleProvider="target">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="TweetTableCell" rowHeight="198" id="Gd5-Db-DD6" customClass="TweetTableViewCell" customModule="Smashtag" customModuleProvider="target">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Gd5-Db-DD6" id="S0B-qh-a9y">
                                     <autoresizingMask key="autoresizingMask"/>
@@ -100,24 +100,23 @@
                     <navigationItem key="navigationItem" title="Twittes" id="hXJ-CF-tDi"/>
                     <connections>
                         <outlet property="searchField" destination="xi3-Oq-GTz" id="YnT-65-0du"/>
-                        <outlet property="tweetTableView" destination="U7a-V8-HOJ" id="Irl-cn-VNd"/>
                         <segue destination="bwi-d1-uca" kind="show" identifier="ShowTweetInfo" id="SOt-EE-fW9"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Gd9-Os-aZ3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="255" y="-37"/>
+            <point key="canvasLocation" x="239" y="-44"/>
         </scene>
-        <!--Tweet Info Table View Controller-->
+        <!--Tweet Mentions Table View Controller-->
         <scene sceneID="Vk9-VG-oFY">
             <objects>
-                <tableViewController id="bwi-d1-uca" customClass="TweetInfoTableViewController" customModule="Smashtag" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="bwi-d1-uca" customClass="TweetMentionsTableViewController" customModule="Smashtag" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="Zer-eI-qSO">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TweetInfoCell" rowHeight="51" id="smT-YD-fvj" customClass="TweetTextInfoViewCell" customModule="Smashtag" customModuleProvider="target">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TweetKeywordCell" rowHeight="51" id="smT-YD-fvj" customClass="TweetKeywordViewCell" customModule="Smashtag" customModuleProvider="target">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="smT-YD-fvj" id="rap-Rn-qvD">
                                     <autoresizingMask key="autoresizingMask"/>
@@ -125,7 +124,7 @@
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" text="tweetInfo" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="joa-kB-aAY">
                                             <rect key="frame" x="8" y="8" width="584" height="34"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
@@ -139,7 +138,7 @@
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <outlet property="tweetInfo" destination="joa-kB-aAY" id="g6w-Ll-TBz"/>
+                                    <outlet property="tweetInfo" destination="joa-kB-aAY" id="HId-Ad-aT8"/>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TweetImageCell" rowHeight="190" id="SK2-dd-lfE" customClass="TweetImageViewCell" customModule="Smashtag" customModuleProvider="target">
@@ -161,7 +160,7 @@
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <outlet property="tweetImageView" destination="NcT-uc-UZr" id="fFA-RW-2J9"/>
+                                    <outlet property="tweetImageView" destination="NcT-uc-UZr" id="Vsf-qo-2tw"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -170,10 +169,33 @@
                             <outlet property="delegate" destination="bwi-d1-uca" id="43B-jW-dZF"/>
                         </connections>
                     </tableView>
+                    <connections>
+                        <segue destination="hIu-KT-f1b" kind="unwind" identifier="UnwindToTweetTable" unwindAction="getBack:" id="K2X-VL-ZyE"/>
+                        <segue destination="2Dw-yR-iAH" kind="show" identifier="ToTweetImageVC" id="swB-3X-zdY"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="C97-7x-IkI" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="hIu-KT-f1b" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="870" y="-62"/>
+            <point key="canvasLocation" x="955" y="13"/>
+        </scene>
+        <!--Tweet Image View Controller-->
+        <scene sceneID="o4a-2A-EzV">
+            <objects>
+                <viewController id="2Dw-yR-iAH" customClass="TweetImageViewController" customModule="Smashtag" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Rzy-dw-ndk"/>
+                        <viewControllerLayoutGuide type="bottom" id="XtB-yR-EUx"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="pYn-MM-yNa">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="8Fm-K3-1Cf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="784" y="785"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="4PG-Wm-wZF">
