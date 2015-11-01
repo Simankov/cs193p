@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TweetInfoTableViewController : UITableViewController, UITableViewDelegate,UITableViewDataSource {
+class TweetMentionsTableViewController : UITableViewController, UITableViewDelegate,UITableViewDataSource {
     var tweet: Tweet?{
         didSet{
             tweetContent = getTweetContent()
@@ -23,7 +23,7 @@ class TweetInfoTableViewController : UITableViewController, UITableViewDelegate,
         }
         var storyboardIdentifier: String{
             switch (self){
-            case .UserMention,.Hashtag, .URL: return Storyboard.TweetInfoViewCellIdentifier
+            case .UserMention,.Hashtag, .URL: return Storyboard.TweetKeywordViewCellIdentifier
             case .Image: return Storyboard.TweetImageViewCellIdentifier
             }
         }
@@ -54,8 +54,10 @@ class TweetInfoTableViewController : UITableViewController, UITableViewDelegate,
     }
     
     private struct Storyboard{
-        static let TweetInfoViewCellIdentifier = "TweetInfoCell"
+        static let TweetKeywordViewCellIdentifier = "TweetKeywordCell"
         static let TweetImageViewCellIdentifier = "TweetImageCell"
+        static let UnwindSegueToTweetTableIdentifier = "UnwindToTweetTable"
+        static let SegueToTweetImageVCIdentifier = "ToTweetImageVC"
     }
     
     private struct Headers{
@@ -78,7 +80,7 @@ class TweetInfoTableViewController : UITableViewController, UITableViewDelegate,
                 cell = tableView.dequeueReusableCellWithIdentifier(section.storyboardIdentifier) as UITableViewCell
                     switch (section){
                         case .URL,.Hashtag, .UserMention:
-                            (cell as? TweetTextInfoViewCell)?.tweetInfoText = content[section.header]?[indexPath.row]
+                            (cell as? TweetKeywordViewCell)?.tweetInfoText = content[section.header]?[indexPath.row]
                         case .Image :
                             (cell as? TweetImageViewCell)?.imageURLString = content[section.header]?[indexPath.row]
                     }
@@ -119,10 +121,50 @@ class TweetInfoTableViewController : UITableViewController, UITableViewDelegate,
         return numberInSection(section) ?? 0
     }
     
+    override func tableView(tableView: UITableView,
+        didSelectRowAtIndexPath indexPath: NSIndexPath){
+            if let cell = cellType(rawValue: indexPath.section){
+                switch(cell){
+                    case .UserMention, .Hashtag:
+                        performSegueWithIdentifier(Storyboard.UnwindSegueToTweetTableIdentifier, sender:    tweetContent?[cell.header]?[indexPath.row])
+                    case .Image:
+                        performSegueWithIdentifier(Storyboard.SegueToTweetImageVCIdentifier, sender: tweetContent?[cell.header]?[indexPath.row])
+                    case .URL:
+                        showInSafari(tweetContent?[cell.header]?[indexPath.row])
+                }
+            }
+    }
+    
+    private func showInSafari(urlString: String?){
+        if urlString != nil{
+            if let url = NSURL(string: urlString!){
+                UIApplication.sharedApplication().openURL(url)
+            }
+        }
+    }
+    
     private func numberInSection(section: Int)-> Int?{
         if let cell = cellType(rawValue: section){
-            tweetContent?[cell.header]?.count
+            if let count = tweetContent?[cell.header]?.count{
+                return count
+            }
         }
         return nil
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if let identifier = segue.identifier{
+            switch(identifier){
+            case Storyboard.UnwindSegueToTweetTableIdentifier:
+                if let tweetTableViewController = segue.destinationViewController as? TweetTableViewController{
+                    tweetTableViewController.searchText = sender as? String
+                }
+            case Storyboard.SegueToTweetImageVCIdentifier:
+                if let tweetImageViewController = segue.destinationViewController as? TweetImageViewController{
+                    tweetImageViewController.imageURLString = sender as? String
+                }
+            default:  break
+            }
+        }
     }
 }
