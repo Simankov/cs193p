@@ -8,30 +8,27 @@
 
 import UIKit
 
-class TweeterTableViewController: UITableViewController, UITableViewDelegate,UITableViewDataSource, UITextFieldDelegate{
+class TweetTableViewController: UITableViewController, UITableViewDelegate,UITableViewDataSource, UITextFieldDelegate{
     
     struct Storyboard{
         static let SegueIdentifierToTweetInfo = "ShowTweetInfo"
-        static let CellReuseIdentificator = "ReusableCell"
+        static let CellReuseIdentificator = "TweetTableCell"
     }
-
-    var tweets = [[Tweet]]()
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        tableView.estimatedRowHeight = 600
-        tableView.rowHeight = UITableViewAutomaticDimension
-        
-        request()
-        
-    }
-
-   
-    var searchText: String? = "#spbu"{
+    var searchText: String? = "@spbu"{
         didSet{
             tweets.removeAll()
             tableView.reloadData()
             request()
+            searchField.text = searchText
+        }
+    }
+    var tweets = [[Tweet]]()
+    var lastTwitterRequest: TwitterRequest?
+    
+    @IBOutlet weak var searchField: UITextField!{
+        didSet{
+            searchField.delegate = self
             searchField.text = searchText
         }
     }
@@ -44,25 +41,21 @@ class TweeterTableViewController: UITableViewController, UITableViewDelegate,UIT
             } else {
                 request = TwitterRequest(search: query, count: 100)
             }
-            
-        request?.fetchTweets(){ tweets -> Void in
+            request?.fetchTweets(){ tweets -> Void in
             dispatch_async(dispatch_get_main_queue())
                 {
                     self.tweets.insert(tweets, atIndex: 0)
                     self.tableView.reloadData()
-                    
                 }
             }
         }
     }
     
-    var lastTwitterRequest: TwitterRequest?
-
-    @IBOutlet weak var searchField: UITextField!{
-        didSet{
-            searchField.delegate = self
-            searchField.text = searchText
-        }
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        tableView.estimatedRowHeight = 600
+        tableView.rowHeight = UITableViewAutomaticDimension
+        request()
     }
     
     override func didReceiveMemoryWarning() {
@@ -71,13 +64,6 @@ class TweeterTableViewController: UITableViewController, UITableViewDelegate,UIT
         
     }
 
-    @IBOutlet var tweetTableView: UITableView!{
-        didSet{
-            tweetTableView.delegate = self
-            tweetTableView.dataSource = self
-        }
-    }
-    
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return tweets.count
     }
@@ -85,7 +71,6 @@ class TweeterTableViewController: UITableViewController, UITableViewDelegate,UIT
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.CellReuseIdentificator) as TweetTableViewCell
-        
         cell.tweet = tweets[indexPath.section][indexPath.row]
         return cell
     }
@@ -99,21 +84,23 @@ class TweeterTableViewController: UITableViewController, UITableViewDelegate,UIT
         if textField == searchField{
             textField.resignFirstResponder()
             searchText = textField.text
-            
         }
-        
         return true
+    }
+    
+    @IBAction func getBack(segue : UIStoryboardSegue){
+        
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if let identifier = segue.identifier {
             switch (identifier){
-            case Storyboard.SegueIdentifierToTweetInfo:
-                if let tweetInfoTableViewController = segue.destinationViewController as?TweetInfoTableViewController{
-                    let tweet = sender as? Tweet
-                    tweetInfoTableViewController.tweet = tweet
-                }
-            default: break
+                case Storyboard.SegueIdentifierToTweetInfo:
+                    if let tweetMentionsTableViewController = segue.destinationViewController as? TweetMentionsTableViewController{
+                        let tweet = sender as? Tweet
+                        tweetMentionsTableViewController.tweet = tweet
+                    }
+                default: break
             }
         }
     }

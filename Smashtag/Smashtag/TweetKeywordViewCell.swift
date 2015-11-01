@@ -8,9 +8,9 @@
 import UIKit
 // info means hashtag || url || userMentions
 
-class TweetTextInfoViewCell: UITableViewCell{
+class TweetKeywordViewCell: UITableViewCell{
     
-    @IBOutlet weak var tweetInfo: UILabel!
+    @IBOutlet private weak var tweetInfo: UILabel!
     
     
     var tweetInfoText : String?{
@@ -21,7 +21,7 @@ class TweetTextInfoViewCell: UITableViewCell{
     
     
     
-    func updateUI(){
+    private func updateUI(){
         tweetInfo?.text = tweetInfoText
     }
 

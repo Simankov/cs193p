@@ -9,15 +9,13 @@
 import UIKit
 
 class TweetImageViewCell: UITableViewCell{
-    @IBOutlet weak var tweetImageView: UIImageView!
+    @IBOutlet private weak var tweetImageView: UIImageView!
     
-    var tweetImage: UIImage?{
+    private var tweetImage: UIImage?{
         willSet{
             tweetImageView?.image = newValue
         }
     }
-    
-    
     var imageURLString: String?{
         didSet{
             if imageURLString != nil {
@@ -26,28 +24,21 @@ class TweetImageViewCell: UITableViewCell{
             }
         }
     }
+   private var imageURL : NSURL?
     
-    var imageURL : NSURL?
-    
-    
-    
-    func updateUI(){
+   private func updateUI(){
         if imageURL != nil {
-            
-          let qos = Int(QOS_CLASS_USER_INITIATED.value);
+           let qos = Int(QOS_CLASS_USER_INITIATED.value);
             if let url = imageURL{
                 dispatch_async(dispatch_get_global_queue(qos, 0)){
                     if let imageData = NSData(contentsOfURL: url){
-                        
-                        dispatch_async(dispatch_get_main_queue()){
+                       dispatch_async(dispatch_get_main_queue()){
                             if url == self.imageURL{
                                 self.tweetImage = UIImage(data: imageData)
-                                
                             }
                         }
                     }
                 }
-                
             }
         }
     }
