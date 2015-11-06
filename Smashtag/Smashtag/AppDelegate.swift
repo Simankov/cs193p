@@ -7,16 +7,19 @@
 //
 
 import UIKit
-
+import CoreData
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
+    var managedObjectContext : NSManagedObjectContext?
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
-        
+        managedObjectContext = createMainQueueManagedObjectContext()
+        let databaseAvailabilityNotification = NSNotification(name: NotificationNames.DatabaseAvailabilityNotificationName, object: nil, userInfo: [NotificationUserInfoKeys.DatabaseManagedObjectContextKey: managedObjectContext ?? ""])
+        NSNotificationCenter.defaultCenter().postNotification(databaseAvailabilityNotification)
+       
         return true
     }
 

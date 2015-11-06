@@ -40,6 +40,7 @@ class TweetTableViewCell: UITableViewCell {
     }
     
     private func updateUI(){
+        self.imageOfUser?.image = nil
         nameOfUser?.text = tweet?.user.name
         setTextOfTweet()
         if let url =  tweet?.user.profileImageURL{
@@ -47,10 +48,9 @@ class TweetTableViewCell: UITableViewCell {
             let queue = dispatch_get_global_queue(qos, 0)
             dispatch_async(queue){
                 if let data = NSData(contentsOfURL: url){
-                    if let image = UIImage(data: data){
-                        if url == self.tweet?.user.profileImageURL{
                             dispatch_async(dispatch_get_main_queue()){
-                                self.imageOfUser.image = image
+                            if url == self.tweet?.user.profileImageURL{
+                                self.imageOfUser.image = UIImage(data: data)
                             }
                         }
                     }
@@ -58,4 +58,4 @@ class TweetTableViewCell: UITableViewCell {
             }
         }
     }
-}
+

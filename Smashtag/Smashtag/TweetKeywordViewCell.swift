@@ -11,18 +11,13 @@ import UIKit
 class TweetKeywordViewCell: UITableViewCell{
     
     @IBOutlet private weak var tweetInfo: UILabel!
-    
-    
     var tweetInfoText : String?{
         didSet{
             updateUI()
         }
     }
     
-    
-    
     private func updateUI(){
         tweetInfo?.text = tweetInfoText
     }
-
 }

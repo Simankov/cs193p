@@ -7,25 +7,40 @@
 //
 
 import UIKit
-
+import CoreData
 class TweetTableViewController: UITableViewController, UITableViewDelegate,UITableViewDataSource, UITextFieldDelegate{
     
     struct Storyboard{
         static let SegueIdentifierToTweetInfo = "ShowTweetInfo"
         static let CellReuseIdentificator = "TweetTableCell"
     }
-    
+    let kMaximumEntitiesInDatabase = 10
+    var managedObjectContext : NSManagedObjectContext?
+    var managedObjectIDToDelete: Int64 = 0; //implementing fifo with core data
     var searchText: String? = "@spbu"{
         didSet{
-            tweets.removeAll()
-            tableView.reloadData()
-            request()
-            searchField.text = searchText
+            if searchText != oldValue {
+                tweets.removeAll()
+                tableView.reloadData()
+                searchField.text = searchText
+                refresh(refreshControl)
+                lastQuery = searchText
+            } else {
+                refresh(refreshControl)
+            }
+            title = searchText
         }
     }
     var tweets = [[Tweet]]()
     var lastTwitterRequest: TwitterRequest?
-    
+
+    var lastQuery: String?{
+        didSet{
+            if lastQuery != nil{
+                insertEntityInDatabase(lastQuery!)
+            }
+        }
+    }
     @IBOutlet weak var searchField: UITextField!{
         didSet{
             searchField.delegate = self
@@ -34,28 +49,35 @@ class TweetTableViewController: UITableViewController, UITableViewDelegate,UITab
     }
         
     func request(){
-        var request : TwitterRequest?
         if let query = searchText {
-            if let lastRequest = lastTwitterRequest{
-                request = lastRequest.requestForNewer
-            } else {
-                request = TwitterRequest(search: query, count: 100)
-            }
-            request?.fetchTweets(){ tweets -> Void in
-            dispatch_async(dispatch_get_main_queue())
-                {
-                    self.tweets.insert(tweets, atIndex: 0)
-                    self.tableView.reloadData()
+            var request: TwitterRequest? = TwitterRequest(search: query, count: 100)
+            self.refreshControl!.beginRefreshing()
+            if lastTwitterRequest != nil {
+                if query == lastQuery{
+                    request = lastTwitterRequest!.requestForNewer
                 }
             }
-        }
+            request?.fetchTweets(){ tweets -> Void in
+                if tweets.count > 0 {
+                    dispatch_async(dispatch_get_main_queue()){
+                        self.tweets.insert(tweets, atIndex: 0)
+                        self.tableView.reloadData()
+                        self.refreshControl?.endRefreshing()
+                }
+            } else {
+                self.refreshControl?.endRefreshing()
+                }
+            }
+            lastTwitterRequest = request
+            }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.estimatedRowHeight = 600
         tableView.rowHeight = UITableViewAutomaticDimension
-        request()
+        refresh(refreshControl)
+        title = searchText
     }
     
     override func didReceiveMemoryWarning() {
@@ -89,7 +111,7 @@ class TweetTableViewController: UITableViewController, UITableViewDelegate,UITab
     }
     
     @IBAction func getBack(segue : UIStoryboardSegue){
-        
+        //for unwind segue. Data provided to current MVC from TweetMentionsMVC
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -109,6 +131,33 @@ class TweetTableViewController: UITableViewController, UITableViewDelegate,UITab
         return tweets[section].count
     }
     
+    func insertEntityInDatabase(entityText: String){
+        let fetchRequest = NSFetchRequest(entityName: "Query")
+        let errorWhileCounting = NSErrorPointer()
+        fetchRequest.predicate = nil //all
+        let count = managedObjectContext?.countForFetchRequest(fetchRequest, error: errorWhileCounting)
+        if count > kMaximumEntitiesInDatabase {
+            let error = NSErrorPointer()
+            let fetchRequestToDelete = NSFetchRequest(entityName: "Query")
+            fetchRequestToDelete.fetchLimit = 1
+            fetchRequestToDelete.sortDescriptors = [NSSortDescriptor(key: "date", ascending: true)]
+            let latestQuery = managedObjectContext?.executeFetchRequest(fetchRequestToDelete, error: error)?.first as NSManagedObject
+            managedObjectContext?.deleteObject(latestQuery)
+        }
+        let entity = NSEntityDescription.insertNewObjectForEntityForName("Query", inManagedObjectContext:   self.managedObjectContext!)
+        let currentTime = NSDate()
+        let formatter = NSDateFormatter()
+        entity.setValue(currentTime, forKey: "date")
+        entity.setValue(self.lastQuery!, forKey: "text")
+        entity.setValue(count!+1, forKey: "id")
+        let error = NSErrorPointer()
+        self.managedObjectContext?.save(error)
+        assert(error==nil && errorWhileCounting==nil, "\(error.memory?.description), \(errorWhileCounting.memory?.description)")
+    }
+    
+    @IBAction func refresh(sender: UIRefreshControl!){
+        request()
+    }
     
 }
 
