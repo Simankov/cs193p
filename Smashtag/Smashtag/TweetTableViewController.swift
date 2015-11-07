@@ -14,6 +14,8 @@ class TweetTableViewController: UITableViewController, UITableViewDelegate,UITab
         static let SegueIdentifierToTweetInfo = "ShowTweetInfo"
         static let CellReuseIdentificator = "TweetTableCell"
     }
+    
+ 
     let kMaximumEntitiesInDatabase = 10
     var managedObjectContext : NSManagedObjectContext?
     var managedObjectIDToDelete: Int64 = 0; //implementing fifo with core data

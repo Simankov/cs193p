@@ -250,14 +250,16 @@
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zYP-Ns-qfK" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tabBarItem systemItem="search" id="aoS-7P-Ra3"/>
+                <tabBarItem systemItem="history" id="hAn-W2-DPX"/>
             </objects>
-            <point key="canvasLocation" x="-579" y="436"/>
+            <point key="canvasLocation" x="-515" y="396"/>
         </scene>
-        <!--Item-->
+        <!--Navigation Controller-->
         <scene sceneID="Vr7-Iy-a0T">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="aq9-ug-5Zv" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="5Tf-BK-8d8"/>
+                    <tabBarItem key="tabBarItem" systemItem="history" id="5Tf-BK-8d8"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="RgF-BS-IPm">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -272,11 +274,11 @@
             </objects>
             <point key="canvasLocation" x="239" y="857"/>
         </scene>
-        <!--Item-->
+        <!--Navigation Controller-->
         <scene sceneID="2Qz-rK-AxM">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="YPo-Bj-vGE" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="xa4-6j-clb"/>
+                    <tabBarItem key="tabBarItem" systemItem="search" id="xa4-6j-clb"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="vnH-1u-hnG">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -293,6 +295,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="dAo-8y-51Y"/>
+        <segue reference="Uio-Kq-vDs"/>
     </inferredMetricsTieBreakers>
 </document>

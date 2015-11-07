@@ -21,9 +21,8 @@ class TweetTabBarViewController : UITabBarController{
     override func viewDidLoad() {
         
          let tweetTableViewController = (self.viewControllers?[0] as? UINavigationController)?.topViewController as TweetTableViewController
-        tweetTableViewController.tabBarItem = UITabBarItem(tabBarSystemItem: UITabBarSystemItem.Search, tag: 0)
         let tweetHistoryTableViewController = (self.viewControllers?[1] as? UINavigationController)?.topViewController as TweetHistoryTableViewController
-        tweetHistoryTableViewController.tabBarItem = UITabBarItem(tabBarSystemItem: UITabBarSystemItem.Recents, tag: 1)
+        
         tweetTableViewController.managedObjectContext = managedObjectContext
         tweetHistoryTableViewController.managedObjectContext = managedObjectContext
     }
